@@ -3,11 +3,12 @@
   height: 150px;
   padding: 20px;
   color: white;
+  text-align: center;
 }
 
 .Logo img {
   animation: App-logo-spin infinite 20s linear;
-  height: 88px;
+  height: 68px;
 }
 
 
@@ -18,4 +19,16 @@
   to {
     transform: rotate(360deg);
   }
+}
+
+
+.Menu{
+  margin:0;
+  padding: 0;
+  list-style: none;
+}
+
+.Menu li{
+  display: inline-block;
+  padding-right: 18px
 }

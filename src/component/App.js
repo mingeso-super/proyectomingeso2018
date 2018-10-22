@@ -3,11 +3,14 @@ import Header from './Header.js';
 import Content from './Content.js';
 import Footer from './Footer.js';
 
+
+import items from './menu/menu.js'; 
+
 class App extends Component {  
   render() {   
     return (
     <div className="App">
-      <Header />    
+      <Header title="CodeJobs" items={items}/>    
       <Content />
       <Footer />       
       </div>	    
