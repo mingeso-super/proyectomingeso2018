@@ -1,0 +1,26 @@
+
+.div{
+	margin: 0 auto;
+}
+.panel{
+	width: 60%;
+	margin-right: 30%;
+	margin-left: 15%;
+	text-align: left;
+	border-width:19px; 
+	border-radius:7px;
+}
+
+.table-bordered > thead > tr > th,
+.table-bordered > tbody > tr > th,
+.table-bordered > tfoot > tr > th,
+.table-bordered > thead > tr > td,
+.table-bordered > tbody > tr > td,
+.table-bordered > tfoot > tr > td{
+	border:2px solid #eee;
+	 vertical-align: middle;
+}
+.table-bordered{
+	border-radius:7px
+}
+
