@@ -1,5 +1,5 @@
 .Header {
-  background-color: #222;
+  background-color: #62708e;
   height: 150px;
   padding: 20px;
   color: white;
@@ -8,7 +8,7 @@
 
 .Logo img {
   animation: App-logo-spin infinite 20s linear;
-  height: 68px;
+  height: 50px;
 }
 
 

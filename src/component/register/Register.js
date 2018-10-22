@@ -8,12 +8,18 @@ class Register extends Component {
 
     this.state = {
       email: "",
-      password: ""
+      password1: "",
+      password2: ""
     };
   }
 
   validateForm() {
-    return this.state.email.length > 0 && this.state.password.length > 0;
+    
+    const pass1= this.state.password1.value; 
+    const pass2 = this.state.password2.value;     
+
+    return this.state.email.length > 0 && this.state.password1.length > 0 && this.state.password2.length > 0 && pass1 == pass2;
+
   }
 
   handleChange = event => {
@@ -40,18 +46,18 @@ class Register extends Component {
               onChange={this.handleChange}
             />
           </FormGroup>
-          <FormGroup controlId="password" bsSize="large">
+          <FormGroup controlId="password1" bsSize="large">
             <ControlLabel>Contraseña</ControlLabel>
             <FormControl
-              value={this.state.password}
+              value={this.state.password1}
               onChange={this.handleChange}
               type="password"
             />
           </FormGroup>
-          <FormGroup controlId="password" bsSize="large">
+          <FormGroup controlId="password2" bsSize="large">
             <ControlLabel>Confirmar Contraseña</ControlLabel>
             <FormControl
-              value={this.state.password}
+              value={this.state.password2}
               onChange={this.handleChange}
               type="password"
             />

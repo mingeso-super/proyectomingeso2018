@@ -1,14 +1,18 @@
 export default [
 	{
-		title: 'Home',
+		title: 'Inicio',
 		url: '/'
 	},
 	{
-		title: 'Blog',
-		url: '/blog'
+		title: 'Enunciados',
+		url: '/enunciados'
 	},
 	{
-		title: 'Principal',
-		url: '/principal'
+		title: 'Indicadores Personales',
+		url: '/indicadoresPersonales'
+	},
+	{
+		title: 'Salir',
+		url: '/salir'
 	}
 ];
