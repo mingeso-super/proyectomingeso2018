@@ -8,7 +8,7 @@
 
 .Logo img {
   animation: App-logo-spin infinite 20s linear;
-  height: 50px;
+  height: 40px;
 }
 
 
@@ -28,7 +28,8 @@
   list-style: none;
 }
 
-.Menu li{
+.Menu .btn.btn-info{
+ margin-right:0.5%;
   display: inline-block;
   padding-right: 18px
 }
