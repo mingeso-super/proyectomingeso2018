@@ -1,17 +1,16 @@
 import React from 'react';
-import ReactDOM from 'react-dom';
+import  {render} from 'react-dom';
 import './index.css';
-import App from './component/App';
 import * as serviceWorker from './serviceWorker';
-import Login from './component/login/Login.js';
-import Register from './component/register/Register.js';
 import Bootstrap from 'bootstrap/dist/css/bootstrap.css';
-import Table from './component/table/Table.js';
-import TextTarea from './component/textTarea/TextTarea.js'
 
-ReactDOM.render(<TextTarea/>, document.getElementById('root'));
+import { BrowserRouter as Router } from 'react-router-dom';
 
-// If you want your app to work offline and load faster, you can change
-// unregister() to register() below. Note this comes with some pitfalls.
-// Learn more about service workers: http://bit.ly/CRA-PWA
-serviceWorker.unregister();
+//Routes
+import AppRoutes from './Routes';
+
+render(
+	<Router >
+		<AppRoutes />
+	</Router >,
+	document.getElementById('root'));

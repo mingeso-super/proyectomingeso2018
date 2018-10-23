@@ -1,15 +1,22 @@
 import React, { Component } from "react";
 import './css/Content.css';
 
-
+import PropTypes from 'prop-types';
 
 class Content extends Component {  
+
+
+static propTypes = {
+	body: PropTypes.object.isRequired
+};
+
   render() {   
+  	const {body} = this.props;
+
     return (
       <div className="Content">
-	      <h1> Content </h1>
-	      <p> dsadsa,...</p>  
-	    </div>
+	     {body}
+	   </div>
     );
   }
 }

@@ -5,16 +5,19 @@ import Footer from './Footer.js';
 import Table from './table/Table.js';
 
 import items from './menu/Menu.js'; 
+import PropTypes from 'prop-types';
 
 class App extends Component {  
-  render() {   
+	static propTypes = {
+		children: PropTypes.object.isRequired
+	};
+  render() {  
+  const {children} = this.props;
     return (
     <div className="App">
-      <Header title="Alumnos" items={items}/> 
-           
-    	<Table /> 
+      <Header title="Alumnos" items={items}/>        
 
-
+      <Content body={children} />  
       </div>	    
     );
   }
