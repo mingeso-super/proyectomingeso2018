@@ -7,8 +7,9 @@ import Login from './component/login/Login.js';
 import Register from './component/register/Register.js';
 import Bootstrap from 'bootstrap/dist/css/bootstrap.css';
 import Table from './component/table/Table.js';
+import TextTarea from './component/textTarea/TextTarea.js'
 
-ReactDOM.render(<App/>, document.getElementById('root'));
+ReactDOM.render(<TextTarea/>, document.getElementById('root'));
 
 // If you want your app to work offline and load faster, you can change
 // unregister() to register() below. Note this comes with some pitfalls.
