@@ -10,6 +10,7 @@ import Table from './component/table/Table.js';
 import Page404 from './component/page404/Page404';
 import EnunAlumno from './component/alumno/EnunciadoEstudiante';
 import EnunProfesor from './component/profesor/EnunciadoProfesor';
+import IngresarEnunProfe from './component/profesor/IngresarEnunciadoProfesor';
 
 const AppRoutes = () =>
 <App>
@@ -17,6 +18,7 @@ const AppRoutes = () =>
 		<Route exact path="/login" component={Login} />
 		<Route exact path="/register" component={Register} />
 		<Route exact path="/table" component={Table} />
+		<Route exact path="/ingresarEnunProfesor" component={IngresarEnunProfe} />
 		<Route exact path="/enunciadoEstudiante" component={EnunAlumno} />		
 		<Route exact path="/enunciadoProfesor" component={EnunProfesor} />	
 	</switch>

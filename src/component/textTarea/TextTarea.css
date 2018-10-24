@@ -1,5 +1,5 @@
 .TextTarea{
-	margin-top: 15%;
+	margin-top: 3%;
 }
 
 .TextTarea .form-control{
@@ -11,10 +11,4 @@
 h3{
 	
 	margin-left: 20%;
-}
-
-.TextTarea Button{
-	margin: 0.5%;
-	margin-left: 58%;
-
 }
