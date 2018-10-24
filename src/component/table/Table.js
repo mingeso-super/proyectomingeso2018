@@ -1,24 +1,18 @@
 import React,{Component} from "react";
 import "./Table.css";
+import axios from 'axios';
+
 
 /*
-function showDate(date){
-  var otraDate = new Date(date + 86400000);
-  console.log(otraDate);
-  console.log(otraDate.getMonth());
-  var fecha = otraDate.getDate() + '/' + (otraDate.getMonth()+1) +'/' + otraDate.getFullYear();
-  return fecha;
-}
 
 function ListaItems(props) {
+
   const numbers = props.numbers;
   const listItems = numbers.map((number) =>
     <tr>
       <td>{number.productCode}</td>
       <td>{number.productName}</td>
-      <td>{showDate(number.expirationDate)}</td>
-      <td>{number.category}</td>
-      <td>{number.price}</td>
+      <td>{number.productDate}</td>      
     </tr>
 
   );
@@ -27,8 +21,8 @@ function ListaItems(props) {
   );
 }
 */
-
 class Table extends Component {  
+
 
   render() {
     return (   
@@ -41,11 +35,10 @@ class Table extends Component {
                 <tr>
                   <th>Código </th>
                   <th>Nombre  </th>
-                  <th type>Fecha de Publicación</th>
-                  <th>Descripción</th>
-                  <th>Fecha de término</th>
+                  <th type>Fecha de Publicación</th>                  
                 </tr>
               </thead>              
+              
             </table>
         </div>     
     );

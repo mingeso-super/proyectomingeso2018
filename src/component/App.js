@@ -6,6 +6,7 @@ import Table from './table/Table.js';
 
 import items from './menu/Menu.js'; 
 import PropTypes from 'prop-types';
+import Rol from './Rol.js';
 
 class App extends Component {  
 	static propTypes = {
@@ -15,7 +16,7 @@ class App extends Component {
   const {children} = this.props;
     return (
     <div className="App">
-      <Header title="Alumnos" items={items}/>        
+      <Header title="Principal" items={items}/>        
 
       <Content body={children} />  
       </div>	    
