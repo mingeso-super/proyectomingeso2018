@@ -13,3 +13,11 @@
 h3{
 	margin-top: 10%;
 }
+
+
+#inputDes {
+	width: 70%;
+	margin-left: 10%;
+	margin-top: 3%;
+	height: 200px;
+}

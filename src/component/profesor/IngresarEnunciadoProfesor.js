@@ -9,76 +9,120 @@ import { Button, FormControl} from 'react-bootstrap';
 
 import './indexProfesor.css';
 
-class IngresarEnunciadoProfesor extends Component {  
+class IngresarEnunciadoProfesor extends Component { 
 
-
-agregar(event){
-
-    const enunciado = {
-      productCode: parseInt(this.state.codigo),
-      productTitle: TextTarea.state.titulo,   
-      productDescription: TextTarea.state.description,   
-      expirationDate: this.state.fecha
-
-    }
-    axios.post(`http://104.248.188.46:8082/hackusach/api/v1/profesores/agregar`,  enunciado )
-      .then(res => {
-        console.log(res);
-        console.log(res.data);
-      }).catch(error => {
-      console.log(error.response)
-      });
-      window.location.reload();
-  }
-
-  /* constructor(props) {
+  constructor(props) {
     super(props);
     this.state={
       lista: [],
       codigo: '',
-      nombre: '',
-      fecha: '',
-      categoria: '',
-      precio: 0
+      titulo: '',
+      descripcion: '',
+      fecha: ''
     };
-    this.cambio = this.cambio.bind(this);
-    this.borrar = this.borrar.bind(this);
+     this.cambio = this.cambio.bind(this);
     this.agregar = this.agregar.bind(this);
-    this.buscar = this.buscar.bind(this);
-    this.modificar = this.modificar.bind(this);
   }
 
-  componentDidMount(){
-    axios.get(`http://localhost:9090/products`)
+
+
+   cambio(event){
+    const target = event.target;
+    const name = target.name;
+    const value = target.value;
+    this.setState({
+      [name]: value
+    });
+  } 
+
+ 
+agregar(event){  
+console.log("Agregar nuevo elemento");
+
+  const enunciado = {
+      titulo: this.state.titulo,
+      descripcion: this.state.descripcion,        
+      entradas: [],
+      salidas: []
+    }
+
+    console.log(this.state.descripcion);
+    axios.post(`http://104.248.188.46:8082/hackusach/api/v1/enunciados/`,  enunciado )
+      .then(res => {        
+        console.log(res.data);
+      }).catch(error => {
+      console.log(error.response)
+      });
+   
+  }
+
+borrar(event){
+  console.log("Eliminar elemento");
+    var link = `http://104.248.188.46:8082/hackusach/api/v1/enunciados/4`;
+    console.log(link);
+ //withCredentials: true;
+ //   event.preventDefault();
+    axios.delete(link)
       .then(res => {
+
         console.log(res);
         console.log(res.data);
-        const lista = res.data;
-        this.setState({lista});
-        console.log("olii");
-        console.log(this.state.lista);
-        console.log(this.state.lista[0]);
-        console.log(this.state.lista[0].productCode);
-      });
-  }*/
+      }).catch(error => {
+      console.log(error.response)
+    });
+    /*window.location.reload();*/
 
-	
+  }
+
+   modificar(event){
+    console.log("modificando");    
+
+    const enunciado = {
+      id: "4",
+      titulo: "enunciado modificado",//this.state.titulo,
+      descripcion: "descripcion enunciado modificado",//this.state.descripcion,
+      //fecha: //this.state.fecha     
+      entradas: [],
+      salidas: []
+    }
+
+    var link = `http://104.248.188.46:8082/hackusach/api/v1/enunciados/4` + enunciado;
+    console.log(link);
+    
+    axios.put(link, enunciado)
+      .then(res => {
+        console.log(res);
+
+      }).catch(error => {
+      console.log(error.response)
+      });
+
+
+  }
+
+
 
   render() {    
     return (
-    <div className="IngresarEnunciadoProfesor">
+    <div className="IngresarEnunciadoProfesor" >
     <h3>
           Ingresar un nuevo Enunciado 
      </h3>
      <FormControl
+     name="titulo"
       id="textTitulo"
             type="text"
             
             placeholder="Titulo"
-            onChange={this.handleChange}
+        onChange={this.cambio}
           />      
-    <TextTarea> </TextTarea>  
-     <Button id="guardarEnun" bsStyle="primary" onClick={this.agregar} >Guardar Enunciado</Button>
+
+   <FormControl   id = "inputDes" name="descripcion" componentClass="textarea" placeholder="Descripción" style={{ height: 200 }}  onChange={this.cambio}/>
+    <Button id="guardarEnun" bsStyle="primary" onClick={this.agregar} >Guardar Enunciado</Button>   
+     
+     <button onClick={this.borrar}> Borrar </button>
+     <button onClick={this.modificar}> modificar </button>
+      
     </div>	    
     );
   }

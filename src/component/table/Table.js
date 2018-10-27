@@ -3,16 +3,18 @@ import "./Table.css";
 import axios from 'axios';
 
 
-/*
+
 
 function ListaItems(props) {
 
   const numbers = props.numbers;
   const listItems = numbers.map((number) =>
     <tr>
-      <td>{number.productCode}</td>
-      <td>{number.productName}</td>
-      <td>{number.productDate}</td>      
+      <td>{number.id}</td>
+      <td>{number.titulo}</td> 
+      <td>{number.descripcion}</td>
+      <td>{number.entradas}</td>     
+      <td>{number.salidas}</td>               
     </tr>
 
   );
@@ -20,10 +22,10 @@ function ListaItems(props) {
     <tbody>{listItems}</tbody>
   );
 }
-*/
+
 class Table extends Component {  
 
-
+ 
   render() {
     return (   
        <div class="panel">
@@ -34,11 +36,13 @@ class Table extends Component {
               <thead>
                 <tr>
                   <th>Código </th>
-                  <th>Nombre  </th>
-                  <th type>Fecha de Publicación</th>                  
+                  <th>Titulo  </th>
+                  <th>Descripción  </th>
+                  <th>Entradas  </th>
+                  <th>Salidas  </th>                                   
                 </tr>
               </thead>              
-              
+              <ListaItems numbers={this.props.lista} onClick={this.props.onClick} />
             </table>
         </div>     
     );
