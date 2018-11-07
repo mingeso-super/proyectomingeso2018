@@ -1,0 +1,42 @@
+
+#TextInputCodeId{
+	width: 50%;
+}
+#TextOutputCodeId{
+	width: 50%;
+
+}
+
+#guardarEnunC{
+	margin-left: 36%;
+}
+
+h3{
+	    margin-left: 0%;
+}
+#labelOutput{
+	    margin-top: 0%;
+}
+
+#col1{
+	width: 200%;
+}
+
+#col2{
+	width: 100%;
+}
+
+.IngresarCodigoPyhton{
+
+	margin: 10%;
+}
+
+.IngresarCodigoC{
+
+	margin: 10%;
+}
+
+.IngresarCodigoJava{
+
+	margin: 10%;
+}

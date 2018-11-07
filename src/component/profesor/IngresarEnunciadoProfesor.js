@@ -5,9 +5,12 @@ import items from '../menu/Menu.js';
 import PropTypes from 'prop-types';
 import axios from 'axios';
 
-import { Button, FormControl} from 'react-bootstrap';
+import { Button, FormControl, Table} from 'react-bootstrap';
 
 import './indexProfesor.css';
+import Editable from './EditableCell';
+
+
 
 class IngresarEnunciadoProfesor extends Component { 
 
@@ -35,7 +38,8 @@ class IngresarEnunciadoProfesor extends Component {
     });
   } 
 
- 
+
+
 agregar(event){  
 console.log("Agregar nuevo elemento");
 
@@ -58,10 +62,11 @@ console.log("Agregar nuevo elemento");
 
 borrar(event){
   console.log("Eliminar elemento");
-    var link = `http://104.248.188.46:8082/hackusach/api/v1/enunciados/4`;
+    var link = `http://104.248.188.46:8082/hackusach/api/v1/enunciados/1`;
     console.log(link);
  //withCredentials: true;
  //   event.preventDefault();
+ 
     axios.delete(link)
       .then(res => {
 
@@ -70,7 +75,7 @@ borrar(event){
       }).catch(error => {
       console.log(error.response)
     });
-    /*window.location.reload();*/
+  /*  window.location.reload();*/
 
   }
 
@@ -78,7 +83,7 @@ borrar(event){
     console.log("modificando");    
 
     const enunciado = {
-      id: "4",
+      id: "1",
       titulo: "enunciado modificado",//this.state.titulo,
       descripcion: "descripcion enunciado modificado",//this.state.descripcion,
       //fecha: //this.state.fecha     
@@ -86,7 +91,7 @@ borrar(event){
       salidas: []
     }
 
-    var link = `http://104.248.188.46:8082/hackusach/api/v1/enunciados/4` + enunciado;
+    var link = `http://104.248.188.46:8082/hackusach/api/v1/enunciados/1` + enunciado;
     console.log(link);
     
     axios.put(link, enunciado)
@@ -116,16 +121,18 @@ borrar(event){
             placeholder="Titulo"
         onChange={this.cambio}
           />      
+    
 
    <FormControl   id = "inputDes" name="descripcion" componentClass="textarea" placeholder="Descripción" style={{ height: 200 }}  onChange={this.cambio}/>
-    <Button id="guardarEnun" bsStyle="primary" onClick={this.agregar} >Guardar Enunciado</Button>   
      
-     <button onClick={this.borrar}> Borrar </button>
-     <button onClick={this.modificar}> modificar </button>
-      
+    <div>
+        <Editable />
+    </div>
+      <Button id="guardarEnun" bsStyle="primary" onClick={this.agregar} >Guardar Enunciado</Button>
     </div>	    
     );
   }
 }
 
 export default IngresarEnunciadoProfesor;
+

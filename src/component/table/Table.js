@@ -50,6 +50,3 @@ class Table extends Component {
 }
 
 export default Table;
-
-//para llenar la tabla posteriormente
-/* <ListaItems numbers={this.props.lista} onClick={this.props.onClick} />*/
