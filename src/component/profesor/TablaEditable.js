@@ -8,7 +8,11 @@ import "react-table/react-table.css";
 /*import Hamoni from "hamoni-sync";*/
 import { Button, FormControl, Table} from 'react-bootstrap';
  
+
 var lista=[];
+export const parametros = {
+  lista: lista,
+}
 
 function ListaItems1(props) {
   const numbers = props.numbers;
@@ -78,6 +82,7 @@ agregar(event){
     lista.push(lista_aprox);
     console.log("lista global");
     console.log(lista); 
+   
   }
   
 
@@ -129,7 +134,9 @@ agregar(event){
 
 
     );
-  }
+  } 
+
 }
+
 
 export default TablaEditable;

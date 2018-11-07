@@ -11,23 +11,24 @@ import 'brace/mode/python';
 import 'brace/theme/solarized_dark';
 
 import './Estudiante.css';
-import { ButtonGroup, Button } from 'react-bootstrap';
+import { ButtonGroup, Button, FormControl, Panel  } from 'react-bootstrap';
 
 
-class IngresarCodigoPyhton extends Component {  
+var programCode ="";
+var responseCode=[];
+var responseError=[];
+class IngresarCodigoPyhton extends Component { 
+   constructor(props) {
+        super(props);
 
+       this.state = {           
+            entrada: ""
+          }; 
 
-
-   constructor(props, context) {
-        super(props, context);
-        
-        this.onChange = this.onChange.bind(this);
           this.agregar = this.agregar.bind(this);
     }
 
-   onChange(newValue) {
-        console.log('change', newValue);
-    }
+
 
   cambio(event){
   
@@ -36,29 +37,51 @@ class IngresarCodigoPyhton extends Component {
 agregar(event){  
 console.log("Agregar nuevo elemento");
 
+
   const prueba = {
-      stdin: "42",
+      stdin: this.state.entrada,
       lang: "PYTHON",       
-      program:  "print(input('Number from stdin: '))" 
+      program: programCode
     }
     
     axios.post(`http://104.248.188.46:8082/hackusach/api/v1/test/program/`,  prueba )
-      .then(res => {        
-        console.log(res.data);
+      .then(res => {   
+      responseCode.push(res.data);   
+        
       }).catch(error => {
-     // console.log(error.response)
+      responseError.push(error.data);
       });
-   
+ console.log(responseCode);
   }
 
-  componentDidMount(){
+ handleChange = event => {
+    if (event.target.name === "entrada")
+      this.setState({ entrada: event.target.value });
    
-  }
+  };
+handleSubmit = event => {
+    event.preventDefault();
+  };
 
-  
+
+    onChange(newValue) {   
+      programCode  = newValue;
+    }
+
   render() {    
     return (
-    <div className="IngresarCodigoPyhton">      
+    <div className="IngresarCodigoPyhton"  onSubmit={this.handleSubmit} >     
+
+     
+   <input
+   id="formInput"
+
+        type="text"
+        name="entrada"
+        value={this.state.entrada}       
+        onChange={this.handleChange}
+         placeholder="Entrada"
+      />
     <AceEditor
           mode="python"
           theme="solarized_dark"
@@ -69,9 +92,7 @@ console.log("Agregar nuevo elemento");
           showPrintMargin={true}
           showGutter={true}
           highlightActiveLine={true}
-          value={`function onLoad(editor) {
-          console.log("i've loaded");
-        }`}
+          value={''}
           setOptions={{
           enableBasicAutocompletion: false,
           enableLiveAutocompletion: false,
@@ -79,7 +100,10 @@ console.log("Agregar nuevo elemento");
           showLineNumbers: true,
           tabSize: 2,
           }}/>
-            
+
+         <label >
+             {responseCode[0]}
+        </label>
 
             <Button bsStyle="primary"  onClick={this.agregar} > Agregar</Button>
              

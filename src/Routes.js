@@ -12,7 +12,7 @@ import EnunAlumno from './component/alumno/EnunciadoEstudiante';
 import EnunProfesor from './component/profesor/EnunciadoProfesor';
 import IngresarEnunProfe from './component/profesor/IngresarEnunciadoProfesor';
 import ResolverEnunciadoEstudiante from './component/alumno/EnunciadoEstudiante';
-import TablaEditable from './component/profesor/EditableCell';
+import TablaEditable from './component/profesor/TablaEditable';
 import IngresarCodigoPyhton from './component/alumno/IngresarCodigoPyhton';
 import IngresarCodigoC from './component/alumno/IngresarCodigoC';
 import IngresarCodigoJava from './component/alumno/IngresarCodigoJava';
@@ -20,7 +20,7 @@ import IngresarCodigo from './component/alumno/IngresarCodigo';
 
 const AppRoutes = () =>
 <App>
-	<switch>
+	<switch> 
 		<Route exact path="/login" component={Login} />
 		<Route exact path="/register" component={Register} />
 		<Route exact path="/table" component={Table} />

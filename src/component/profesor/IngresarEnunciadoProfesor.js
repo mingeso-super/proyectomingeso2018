@@ -8,7 +8,7 @@ import axios from 'axios';
 import { Button, FormControl, Table} from 'react-bootstrap';
 
 import './indexProfesor.css';
-import Editable from './EditableCell';
+import Editable, {parametros} from './TablaEditable';
 
 
 
@@ -23,6 +23,7 @@ class IngresarEnunciadoProfesor extends Component {
       descripcion: '',
       fecha: ''
     };
+    
      this.cambio = this.cambio.bind(this);
     this.agregar = this.agregar.bind(this);
   }
@@ -43,14 +44,24 @@ class IngresarEnunciadoProfesor extends Component {
 agregar(event){  
 console.log("Agregar nuevo elemento");
 
+var entradasTemp=[];
+var salidasTemp=[];
+
+{parametros.lista.map((elem, i) => {    
+
+  entradasTemp.push(elem.entrada); 
+  salidasTemp.push(elem.salida); 
+})}
+
+
   const enunciado = {
       titulo: this.state.titulo,
       descripcion: this.state.descripcion,        
-      entradas: [],
-      salidas: []
+      entradas: entradasTemp,
+      salidas: salidasTemp
     }
 
-    console.log(this.state.descripcion);
+    console.log(enunciado);
     axios.post(`http://104.248.188.46:8082/hackusach/api/v1/enunciados/`,  enunciado )
       .then(res => {        
         console.log(res.data);
@@ -129,6 +140,7 @@ borrar(event){
         <Editable />
     </div>
       <Button id="guardarEnun" bsStyle="primary" onClick={this.agregar} >Guardar Enunciado</Button>
+
     </div>	    
     );
   }
