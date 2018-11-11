@@ -4,151 +4,115 @@ import Content from '../Content.js';
 import PropTypes from 'prop-types';
 import axios from 'axios';
 import AceEditor from 'react-ace';
-import editorPython from './IngresarCodigoPyhton.js';
-import editorC from './IngresarCodigoC.js';
-import editorJava from './IngresarCodigoJava.js';
-import { ButtonGroup, Button } from 'react-bootstrap';
-import './Estudiante.css';
-// Import a Mode (language)
-import 'brace/mode/java';
-
-// Import a Theme (okadia, github, xcode etc)
-import 'brace/theme/solarized_light';
-// Import a Mode (language)
-import 'brace/mode/csharp';
-
-// Import a Theme (okadia, github, xcode etc)
-import 'brace/theme/terminal';
 // Import a Mode (language)
 import 'brace/mode/python';
 
 // Import a Theme (okadia, github, xcode etc)
 import 'brace/theme/solarized_dark';
 
+import './Estudiante.css';
+import { ButtonGroup, Button, FormControl, Panel, DropdownButton, ButtonToolbar, MenuItem  } from 'react-bootstrap';
 
-function cambiarEditor(val){
-  if(val === 1){
-    console.log("entre en python");
-     return (
-          <tbody>
-             <AceEditor
-                mode="python"
-                theme="solarized_dark"
-                name="blah2"
-                onLoad={this.onLoad}
-                onChange={this.onChange}
-                fontSize={16}
-                showPrintMargin={true}
-                showGutter={true}
-                highlightActiveLine={true}
-                value={`function onLoad(editor) {
-                console.log("i've loaded");
-                }`}
-                setOptions={{
-                enableBasicAutocompletion: false,
-                enableLiveAutocompletion: false,
-                enableSnippets: false,
-                showLineNumbers: true,
-                tabSize: 2,
-                }}/>
-          </tbody>
-     );
-   }
-
-   if(val === 2){
-     return (
-          <tbody>
-           <AceEditor
-          mode="csharp"
-          theme="terminal"
-          name="blah2"
-          onLoad={this.onLoad}
-          onChange={this.onChange}
-          fontSize={16}
-          showPrintMargin={true}
-          showGutter={true}
-          highlightActiveLine={true}
-          value={`function onLoad(editor) {
-          console.log("i've loaded");
-        }`}
-          setOptions={{
-          enableBasicAutocompletion: false,
-          enableLiveAutocompletion: false,
-          enableSnippets: false,
-          showLineNumbers: true,
-          tabSize: 2,
-          }}/>
-            
-          </tbody>
-     );
-
-   }
-   if(val === 3){
-      return (
-          <tbody>
-            <AceEditor
-          mode="java"
-          theme="solarized_light"
-          name="blah2"
-          onLoad={this.onLoad}
-          onChange={this.onChange}
-          fontSize={16}
-          showPrintMargin={true}
-          showGutter={true}
-          highlightActiveLine={true}
-          value={`function onLoad(editor) {
-          console.log("i've loaded");
-        }`}
-          setOptions={{
-          enableBasicAutocompletion: false,
-          enableLiveAutocompletion: false,
-          enableSnippets: false,
-          showLineNumbers: true,
-          tabSize: 2,
-          }}/>
-            
-          </tbody>
-     );
-   }  
+var programCode ="";
+var responseCode=[];
+var responseError=[];
+var leng="";
 
 
- 
- 
-}
 
-class IngresarCodigo extends Component {  
 
-   constructor(props, context) {
-        super(props, context);
-        
-        this.onChange = this.onChange.bind(this);
+
+
+const options = ["PYTHON", "C", "JAVA"];
+
+class IngresarCodigo extends Component { 
+   constructor(props) {
+        super(props);
+
+       this.state = {           
+            entrada: "",
+            selectedOption: options[0] // default selected value
+          }; 
+
+          this.agregar = this.agregar.bind(this);
+          this.prueba = this.prueba.bind(this);
+     
     }
 
-   onChange(newValue) {
-        console.log('change', newValue);
-    }
-
-  cambio(event){
-  
-  }
-
-
-  componentDidMount(){
+ handleClick(e) {
+  console.log(e);
+  leng=e;
    
   }
 
-  
+agregar(event){    
+     //enviar evaluacion
+  }
+
+  prueba(event){
+    const prueba = {
+      stdin: this.state.entrada,
+      lang: leng,       
+      program: programCode
+    }
+    
+    axios.post(`http://104.248.188.46:8082/hackusach/api/v1/test/program/`,  prueba )
+      .then(res => {    
+         document.querySelector("label").innerHTML = JSON.stringify(res.data) 
+        
+      }).catch(error => {     
+         document.querySelector("label").innerHTML = JSON.stringify(error.data)
+      });
+
+  }
+
+
+
+   
+ handleChange = event => {
+    if (event.target.name === "entrada")
+      this.setState({ entrada: event.target.value });
+   
+  };
+handleSubmit = event => {
+    event.preventDefault();
+  };
+
+ 
+
+
+
+    onChange(newValue) {   
+      programCode  = newValue;
+    }
+
   render() {    
+
+   
+
     return (
-    <div className="IngresarCodigo">       
-      <ButtonGroup>
-          <Button bsStyle="primary" >Python</Button>
-          <Button bsStyle="success" >C</Button>
-          <Button bsStyle="warning" >Java</Button>
+
+    <div className="IngresarCodigo"  onSubmit={this.handleSubmit} >     
+
+   
+     <ButtonGroup>
+          <Button   onClick={e => this.handleClick("PYTHON")} bsStyle="primary" >Python</Button>
+          <Button  onClick={e => this.handleClick("C")}  bsStyle="success" >C</Button>
+          <Button  onClick={e => this.handleClick("JAVA")}  bsStyle="warning" >Java</Button>
       </ButtonGroup>
-       <AceEditor
+
+   <input
+   id="formInput"
+
+        type="text"
+        name="entrada"
+        value={this.state.entrada}       
+        onChange={this.handleChange}
+         placeholder="Entrada"
+      />
+    <AceEditor
           mode="python"
-          theme="solarized_dark" 
+          theme="solarized_dark"
           name="blah2"
           onLoad={this.onLoad}
           onChange={this.onChange}
@@ -156,18 +120,23 @@ class IngresarCodigo extends Component {
           showPrintMargin={true}
           showGutter={true}
           highlightActiveLine={true}
-          value={`function onLoad(editor) {
-          console.log("i've loaded");
-        }`}
+          value={''}
           setOptions={{
           enableBasicAutocompletion: false,
           enableLiveAutocompletion: false,
           enableSnippets: false,
           showLineNumbers: true,
           tabSize: 2,
-          }}/>            
+          }}/>
 
+         <label for="test"></label>
+            
+       
+            <Button bsStyle="primary"  onClick={this.agregar} > Agregar</Button>
+               <Button bsStyle="primary"  onClick={this.prueba} > Prueba</Button>
+             
       </div>      
+
     );
   }
 }

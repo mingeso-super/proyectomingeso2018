@@ -7,7 +7,7 @@ class Register extends Component {
     super(props);
 
     this.state = {
-      email: "",
+      email: "", 
       password1: "",
       password2: ""
     };
@@ -18,7 +18,7 @@ class Register extends Component {
     const pass1= this.state.password1.value; 
     const pass2 = this.state.password2.value;     
 
-    return this.state.email.length > 0 && this.state.password1.length > 0 && this.state.password2.length > 0 && pass1 == pass2;
+    return this.state.email.length > 0 && this.state.password1.length > 0 && this.state.password2.length > 0 && pass1 === pass2;
 
   }
 
