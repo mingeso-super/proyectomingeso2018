@@ -6,6 +6,8 @@ import Table from './table/Table.js';
 import items from './menu/Menu.js'; 
 import PropTypes from 'prop-types';
 import Rol from './Rol.js';
+import Login from './login/Login.js';
+import { Router, Route } from 'react-router-dom';
 
 class App extends Component {  
 
@@ -21,6 +23,7 @@ class App extends Component {
       <Header title="Principal" items={items}/>    
 
       <Content body={children} />  
+     <Route path="/login" component={Login} />
       </div>	    
     );
   }

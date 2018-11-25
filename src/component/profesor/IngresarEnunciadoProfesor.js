@@ -9,7 +9,7 @@ import { Button, FormControl, Table} from 'react-bootstrap';
 
 import './indexProfesor.css';
 import Editable, {parametros} from './TablaEditable';
-
+ 
 
 
 class IngresarEnunciadoProfesor extends Component { 

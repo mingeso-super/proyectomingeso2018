@@ -1,7 +1,7 @@
-import React from 'react';
-import {Route, Switch} from 'react-router-dom';
 
- 
+
+import React from 'react';
+import {Route, Switch} from 'react-router-dom'; 
 import App from './component/App';
 import Login from  './component/login/Login';
 import Register from  './component/register/Register';
@@ -15,20 +15,24 @@ import ResolverEnunciadoEstudiante from './component/alumno/EnunciadoEstudiante'
 import TablaEditable from './component/profesor/TablaEditable';
 import IngresarCodigo from './component/alumno/IngresarCodigo';
 
+import commentBox from './component/CommentBox';
+
 const AppRoutes = () =>
 <App>
 	<Switch> 
-		<Route exact path="/login" component={Login} />
+		
 		<Route exact path="/register" component={Register} />
 		<Route exact path="/table" component={Table} />
 		<Route exact path="/ingresarEnunProfesor" component={IngresarEnunProfe} />
 		<Route exact path="/enunciadoEstudiante" component={EnunAlumno} />		
 		<Route exact path="/enunciadoProfesor" component={EnunProfesor} />	
 		<Route exact path="/ResolveEnunEstudiante" component={ResolverEnunciadoEstudiante} />	
-		<Route exact path="/TablaEditable" component={TablaEditable} />	
-		
+		<Route exact path="/TablaEditable" component={TablaEditable} />			
 		<Route exact path="/IngresarCodigo" component={IngresarCodigo} />
+		<Route exact path="/commentBox" component={commentBox} />
 	</Switch>
 </App>;
 
 export default AppRoutes;
+/*
+<Route exact path="/login" component={Login} />*/

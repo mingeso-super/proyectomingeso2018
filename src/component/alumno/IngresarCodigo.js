@@ -6,19 +6,23 @@ import axios from 'axios';
 import AceEditor from 'react-ace';
 // Import a Mode (language)
 import 'brace/mode/python';
+import 'brace/mode/java';
+import 'brace/mode/csharp';
 
 // Import a Theme (okadia, github, xcode etc)
 import 'brace/theme/solarized_dark';
+import 'brace/theme/monokai';
+import 'brace/theme/terminal';
 
 import './Estudiante.css';
-import { ButtonGroup, Button, FormControl, Panel, DropdownButton, ButtonToolbar, MenuItem  } from 'react-bootstrap';
+import { ButtonGroup, Button, FormControl, Panel, DropdownButton, ButtonToolbar, MenuItem, Label } from 'react-bootstrap';
 
+
+var lengEditor: "python";
+var temsEditor: "solarized_dark";
 var programCode ="";
 var responseCode=[];
 var responseError=[];
-var leng="";
-
-
 
 
 
@@ -31,7 +35,10 @@ class IngresarCodigo extends Component {
 
        this.state = {           
             entrada: "",
-            selectedOption: options[0] // default selected value
+            leng : "PYTHON",
+            tema: "solarized_dark",
+            lenguajeEditor: "python"
+           
           }; 
 
           this.agregar = this.agregar.bind(this);
@@ -41,20 +48,40 @@ class IngresarCodigo extends Component {
 
  handleClick(e) {
   console.log(e);
-  leng=e;
+  if(e === "PYTHON"){
+    lengEditor= "python";
+    temsEditor = "solarized_dark";
+  }
+  if(e === "C"){
+   lengEditor = "c";
+   temsEditor = "monokai";
+  }
+
+    if(e === "JAVA"){
+   lengEditor = "java";
+    temsEditor = "terminal";
+  }
+
+  this.state.leng=e;
+
+  this.setState({ leng: e });
+  this.setState({ tema: temsEditor });
+  this.setState({ lenguajeEditor: lengEditor });
    
   }
 
 agregar(event){    
-     //enviar evaluacion
+     //enviar evaluacion 
   }
 
   prueba(event){
     const prueba = {
       stdin: this.state.entrada,
-      lang: leng,       
-      program: programCode
+      lang: this.state.leng,       
+      program: programCode 
     }
+
+    console.log(prueba);
     
     axios.post(`http://104.248.188.46:8082/hackusach/api/v1/test/program/`,  prueba )
       .then(res => {    
@@ -66,21 +93,19 @@ agregar(event){
 
   }
 
-
-
    
  handleChange = event => {
-    if (event.target.name === "entrada")
+    if (event.target.name === "entrada"){
       this.setState({ entrada: event.target.value });
+    }
+    
+       
+   
    
   };
 handleSubmit = event => {
     event.preventDefault();
   };
-
- 
-
-
 
     onChange(newValue) {   
       programCode  = newValue;
@@ -94,7 +119,7 @@ handleSubmit = event => {
 
     <div className="IngresarCodigo"  onSubmit={this.handleSubmit} >     
 
-   
+  
      <ButtonGroup>
           <Button   onClick={e => this.handleClick("PYTHON")} bsStyle="primary" >Python</Button>
           <Button  onClick={e => this.handleClick("C")}  bsStyle="success" >C</Button>
@@ -110,9 +135,12 @@ handleSubmit = event => {
         onChange={this.handleChange}
          placeholder="Entrada"
       />
+    
+     <Label name="label" > Lenguaje: { this.state.leng }</Label>
+
     <AceEditor
-          mode="python"
-          theme="solarized_dark"
+          mode={this.state.lenguajeEditor}
+          theme={this.state.tema}
           name="blah2"
           onLoad={this.onLoad}
           onChange={this.onChange}
@@ -129,16 +157,16 @@ handleSubmit = event => {
           tabSize: 2,
           }}/>
 
-         <label for="test"></label>
-            
+         <label for="test"></label>            
        
-            <Button bsStyle="primary"  onClick={this.agregar} > Agregar</Button>
-               <Button bsStyle="primary"  onClick={this.prueba} > Prueba</Button>
+        <Button bsStyle="primary"  onClick={this.agregar} > Agregar</Button>
+        <Button bsStyle="primary"  onClick={this.prueba} > Prueba</Button>
              
       </div>      
 
     );
   }
 }
+
 
 export default IngresarCodigo;
