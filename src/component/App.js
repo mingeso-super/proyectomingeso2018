@@ -20,13 +20,15 @@ class App extends Component {
   const {children} = this.props;
     return (
      <div className="App">
-      <Header title="Principal" items={items}/>    
-
-      <Content body={children} />  
-     <Route path="/login" component={Login} />
+     <Header title="Principal" items={items}/> 
+      <Route path="/login" component={Login} />
+      <Content body={children} />      
       </div>	    
     );
   }
 }
 
 export default App;
+
+/*
+<Header title="Principal" items={items}/>   */

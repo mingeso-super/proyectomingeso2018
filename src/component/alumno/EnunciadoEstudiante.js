@@ -7,6 +7,14 @@ import items from '../menu/Menu.js';
 import PropTypes from 'prop-types';
 import axios from 'axios';
 
+import { Button, FormControl} from 'react-bootstrap';
+
+import Routes from '../../Routes.js';
+import { BrowserRouter, Route, Switch, Redirect, Link } from 'react-router-dom';
+
+
+
+
 
 class EnunciadoEstudiante extends Component {  
 
@@ -29,6 +37,15 @@ class EnunciadoEstudiante extends Component {
     this.modificar = this.modificar.bind(this);
     */
   }
+
+
+   submitHandler(e) {
+    e.preventDefault();
+   
+   
+
+  }
+ 
   cambio(event){
     const target = event.target;
     const name = target.name;
@@ -37,6 +54,7 @@ class EnunciadoEstudiante extends Component {
       [name]: value
     });
   }
+
 
 
   componentDidMount(){
@@ -58,9 +76,13 @@ class EnunciadoEstudiante extends Component {
     return (
     <div className="EnunciadoEstudiante">      
       <Table lista={this.state.lista}/>
+          
+          
       </div>	    
     );
   }
 }
 
 export default EnunciadoEstudiante;
+/*
+<Button type="submit" bsSize="large" bsStyle="success" to="/ingresarEnunProfesor"  block>Login</Button>*/

@@ -2,6 +2,7 @@ import React,{Component} from "react";
 import "./Table.css";
 import axios from 'axios';
 
+import { Link } from 'react-router-dom';
 
 
 
@@ -13,10 +14,12 @@ function ListaItems(props) {
       <td>{number.id}</td>
       <td>{number.titulo}</td> 
       <td>{number.descripcion}</td>
-      <td>{number.entradas}</td>     
-      <td>{number.salidas}</td>               
+      <td>{number.entradas+', '}</td>     
+      <td>{number.salidas+','}</td>  
+      <td>
+       <Link to={"/resolverEnunciado/:"+number.id}>Resolver enunciado</Link>
+      </td>               
     </tr>
-
   );
   return (
     <tbody>{listItems}</tbody>

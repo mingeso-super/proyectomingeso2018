@@ -16,12 +16,7 @@ class EnunciadoProfesor extends Component {
       fecha: ''
     };
 
-    this.cambio = this.cambio.bind(this);
-    this.borrar = this.borrar.bind(this);
-    this.agregar = this.agregar.bind(this);
-    this.buscar = this.buscar.bind(this);
-    this.modificar = this.modificar.bind(this);
-  }
+    }
 
   componentDidMount(){
     axios.get(`http://104.248.188.46:8082/hackusach/api/v1/alumnos/all`)

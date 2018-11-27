@@ -65,10 +65,12 @@ var salidasTemp=[];
     axios.post(`http://104.248.188.46:8082/hackusach/api/v1/enunciados/`,  enunciado )
       .then(res => {        
         console.log(res.data);
+        alert("Enunciado creado con éxito.");
+        window.location.reload();
       }).catch(error => {
-      console.log(error.response)
+      console.log(error.response);
       });
-   
+  
   }
 
 borrar(event){

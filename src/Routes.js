@@ -24,15 +24,15 @@ const AppRoutes = () =>
 		<Route exact path="/register" component={Register} />
 		<Route exact path="/table" component={Table} />
 		<Route exact path="/ingresarEnunProfesor" component={IngresarEnunProfe} />
-		<Route exact path="/enunciadoEstudiante" component={EnunAlumno} />		
-		<Route exact path="/enunciadoProfesor" component={EnunProfesor} />	
-		<Route exact path="/ResolveEnunEstudiante" component={ResolverEnunciadoEstudiante} />	
-		<Route exact path="/TablaEditable" component={TablaEditable} />			
-		<Route exact path="/IngresarCodigo" component={IngresarCodigo} />
+		<Route exact path="/enunciadoEstudiante" component={EnunAlumno} />	
+		<Route exact path="/resolveEnunEstudiante" component={ResolverEnunciadoEstudiante} />	
+		<Route exact path="/tablaEditable" component={TablaEditable} />			
+		<Route exact path="/resolverEnunciado/:id" component={IngresarCodigo} />
 		<Route exact path="/commentBox" component={commentBox} />
 	</Switch>
 </App>;
 
 export default AppRoutes;
 /*
-<Route exact path="/login" component={Login} />*/
+<Route exact path="/login" component={Login} />*//*
+<Route exact path="/enunciadoProfesor" component={EnunProfesor} />	*/

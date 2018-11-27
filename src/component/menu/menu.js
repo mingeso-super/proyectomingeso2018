@@ -13,6 +13,6 @@ export default [
 	},
 	{
 		title: 'Salir',
-		url: '/salir'
+		url: '/login'
 	}
 ];

@@ -21,3 +21,8 @@ h3{
 	margin-top: 3%;
 	height: 200px;
 }
+
+#bloSalida{
+	background-color: coral;
+	width: 46%;
+}

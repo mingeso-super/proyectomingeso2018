@@ -57,6 +57,7 @@ class EnunciadoEstudiante extends Component {
     return (
     <div className="EnunciadoEstudiante">      
       <Table lista={this.state.lista}/>
+  
       </div>	    
     );
   }
