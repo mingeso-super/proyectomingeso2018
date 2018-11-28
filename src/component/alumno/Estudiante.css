@@ -3,6 +3,15 @@
 	padding-left: 10%;
 }
 
+
+#popover-basic-CS{
+	 display: block;
+    top: 259px;
+    left: 700px;
+    font-weight: 600;
+
+}
+
 #TextInputCodeId{
 	width: 50%;
 }
@@ -49,3 +58,7 @@ h3{
 	width: 20%;
 	margin: 1%;
 }
+
+
+
+   

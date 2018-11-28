@@ -17,7 +17,7 @@ import 'brace/theme/terminal';
 //import MyLargeModal from '../MyLargeModal.js';
 
 import './Estudiante.css';
-import { ButtonGroup, Button, FormControl, Panel, ListGroup, ListGroupItem, DropdownButton, ButtonToolbar, MenuItem, Label } from 'react-bootstrap';
+import { ButtonGroup, Button, FormControl,Popover, Panel, ListGroup, ListGroupItem, DropdownButton, ButtonToolbar, MenuItem, Label } from 'react-bootstrap';
 
 import queryString from 'query-string'
 
@@ -26,13 +26,6 @@ var temsEditor: "solarized_dark";
 var programCode ="";
 var responseCode=[];
 var responseError=[];
-
-var tituloEnun;
-var descripcionEnun;
-var entradasEnun = [];
-var salidaEnun = [];
-
-
 
 
 const options = ["PYTHON", "C", "JAVA"];
@@ -46,12 +39,17 @@ class IngresarCodigo extends Component {
             entrada: "",
             leng : "PYTHON",
             tema: "solarized_dark",
-            lenguajeEditor: "python"    
+            lenguajeEditor: "python",
+            tituloEnun : "",
+            descripcionEnun: "",
+            entradasEnun: "",
+            salidaEnun: ""  
            
           }; 
 
           this.agregar = this.agregar.bind(this);
-          this.prueba = this.prueba.bind(this);   
+          this.prueba = this.prueba.bind(this);  
+          this.extraerEnunciado = this.extraerEnunciado.bind(this); 
     }
 
  
@@ -92,23 +90,28 @@ componentDidMount() {
 
 extraerEnunciado(){
   ///api/v1/enunciados/:id
+  var entrada=[],salida=[],titulo,descripcion;
 
   axios.get(`http://104.248.188.46:8082/hackusach/api/v1/enunciados/`+values)
       .then(res => {
         console.log(res);
         console.log(res.data);
         //console.log(res.data.titulo);
-        tituloEnun = res.data.titulo;
-        descripcionEnun = res.data.descripcion;
-        entradasEnun.push(res.data.entradas);
-        salidaEnun.push(res.data.salidas);
-        console.log(tituloEnun);
-        console.log(descripcionEnun);
-        console.log(entradasEnun);
-        console.log(salidaEnun);
-        
+        titulo = res.data.titulo;
+       
+         this.setState({ tituloEnun: res.data.titulo });
+        descripcion = res.data.descripcion;
+        entrada.push(res.data.entradas);
+
+        salida.push(res.data.salidas);     
+         this.setState({ descripcionEnun: descripcion });
+       this.setState({ entradasEnun: entrada });
+       this.setState({ salidaEnun: salida });   
 
       });
+
+      
+      
 }
 
 agregar(event){    
@@ -206,9 +209,23 @@ handleSubmit = event => {
                 <label> Salida</label> 
                  <label for="test" ></label>            
          </div>
-        <Button bsStyle="primary"  onClick={this.agregar} > Enviar solución</Button>
-        <Button bsStyle="primary"  onClick={this.prueba} > Prueba</Button>   
 
+        <Button bsStyle="primary"  onClick={this.agregar} > Enviar solución</Button>
+        <Button bsStyle="primary"  onClick={this.prueba} > Prueba</Button> 
+
+         <div style={{ height: 120 }}>
+            <Popover
+              id="popover-basic-CS"
+              placement="right"              
+              title="Enunciado"
+            >
+             <p> Titulo: {this.state.tituloEnun} </p>   
+              <p> Descripción: {this.state.descripcionEnun} </p>
+              <p> Entradas: {this.state.entradasEnun.toString()}</p>
+              <p> Salidas: {this.state.salidaEnun.toString()}</p>
+          
+            </Popover>
+        </div>
 
       </div>      
 

@@ -17,7 +17,7 @@ function ListaItems(props) {
       <td>{number.entradas+', '}</td>     
       <td>{number.salidas+','}</td>  
       <td>
-       <Link to={"/resolverEnunciado/:"+number.id}>Resolver enunciado</Link>
+       <Link to={"/resolverEnunciado/"+number.id}>Resolver enunciado</Link>
       </td>               
     </tr>
   );

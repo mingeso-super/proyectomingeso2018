@@ -3,7 +3,7 @@ import {Button} from 'react-bootstrap';
 import PropTypes from 'prop-types';
 import logo from './logo.svg';
 import './css/Header.css';
-
+import { Link } from 'react-router-dom';
 
 
 
@@ -22,8 +22,24 @@ class Header extends Component {
 	      <div className="Logo">
 		      <img src={logo} alt="logo" />
 		      <h2>{title}</h2>	 			  	
-			  <ul className="Menu">			  
-			  	{items && items.map((item,key) => <Button bsStyle="info">{item.title}</Button>)}			  
+			  <ul className="Menu">			  		
+			  		
+			  		<Link bsStyle="info" to="/enunciadoEstudiante">
+				     	<button bsStyle="info" >
+					         Enunciados
+					     </button>
+					 </Link>
+					 <Link bsStyle="info" to="/ingresarEnunProfesor">
+				     	<button bsStyle="info" >
+					         Nuevo enunciado
+					     </button>
+					 </Link>
+					 <Link bsStyle="info" to="/login">
+				     	<button bsStyle="info" >
+					         Salir
+					     </button>
+					 </Link>
+			  				  
 			  </ul>
 
 	      </div>    
