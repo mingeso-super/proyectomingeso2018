@@ -2,7 +2,7 @@
 import React, { Component } from "react";
 import Header from '../Header.js'; 
 import Content from '../Content.js';
-import Table from '../table/Table.js';
+import Table from '../table/TableEvaluaciones.js';
 import items from '../menu/menu.js'; 
 import PropTypes from 'prop-types';
 import axios from 'axios';
@@ -13,9 +13,11 @@ import Routes from '../../Routes.js';
 import { BrowserRouter, Route, Switch, Redirect, Link } from 'react-router-dom';
 import {identificador} from '../login/Login';
 
+var id_user;
+var values;
 
 
-class EnunciadoEstudiante extends Component {  
+class EvaluacionesEstudiante extends Component {  
 
    constructor(props) {
     super(props);
@@ -57,11 +59,16 @@ class EnunciadoEstudiante extends Component {
 
 
   componentDidMount(){
-    console.log("el id del u");
 
+    values = this.props.match.params.id;
+
+    console.log("valor del id enunciado es: ");
+    console.log(values);
+
+    console.log("el id del u");
     console.log(localStorage.getItem('id_usuario'));
 
-    axios.get(`http://104.248.188.46:8082/hackusach/api/v1/enunciados/all`)
+    axios.get(`http://104.248.188.46:8082/hackusach/api/v1/alumno/`+localStorage.getItem('id_usuario')+`/enunciado/`+values+`/evaluacion/all`)
       .then(res => {
         console.log(res);
         console.log(res.data);
@@ -74,16 +81,15 @@ class EnunciadoEstudiante extends Component {
   
   render() {    
     return (
-    <div className="EnunciadoEstudiante"> 
+    <div className="EvaluacionesEstudiante"> 
     <Header title="Principal" items={items}/>     
-      <Table lista={this.state.lista}/>
-          
+      <Table lista={this.state.lista}/>          
           
       </div>      
     );
   }
 }
 
-export default EnunciadoEstudiante;
+export default EvaluacionesEstudiante;
 /*
 <Button type="submit" bsSize="large" bsStyle="success" to="/ingresarEnunProfesor"  block>Login</Button>*/

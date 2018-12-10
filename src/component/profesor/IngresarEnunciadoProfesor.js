@@ -1,7 +1,7 @@
 import React, { Component } from "react";
 import TextTarea from '../textTarea/TextTarea';
 
-import items from '../menu/Menu.js'; 
+import items from '../menu/menu.js'; 
 import PropTypes from 'prop-types';
 import axios from 'axios';
 
@@ -10,6 +10,7 @@ import { Button, FormControl, Table} from 'react-bootstrap';
 import './indexProfesor.css';
 import Editable, {parametros} from './TablaEditable';
  
+import Header from '../Header.js';
 
 
 class IngresarEnunciadoProfesor extends Component { 
@@ -62,14 +63,24 @@ var salidasTemp=[];
     }
 
     console.log(enunciado);
-    axios.post(`http://104.248.188.46:8082/hackusach/api/v1/enunciados/`,  enunciado )
+
+    if(this.state.titulo != "" && this.state.descripcion != "" ){
+      axios.post(`http://104.248.188.46:8082/hackusach/api/v1/enunciados/`,  enunciado )
       .then(res => {        
         console.log(res.data);
         alert("Enunciado creado con éxito.");
-        window.location.reload();
+       window.location.reload();
+
+
       }).catch(error => {
       console.log(error.response);
       });
+
+    }
+    else{
+      alert("Debe llenar todos los campos.")
+    }
+    
   
   }
 
@@ -114,7 +125,7 @@ borrar(event){
       }).catch(error => {
       console.log(error.response)
       });
-
+ 
 
   }
 
@@ -123,6 +134,7 @@ borrar(event){
   render() {    
     return (
     <div className="IngresarEnunciadoProfesor" >
+     <Header title="Principal" items={items}/>
     <h3>
           Ingresar un nuevo Enunciado 
      </h3>

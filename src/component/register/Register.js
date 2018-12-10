@@ -3,6 +3,8 @@ import { Button, FormGroup, FormControl, ControlLabel } from "react-bootstrap";
 import "./Register.css";
 import axios from 'axios';
 
+import { Link } from 'react-router-dom';
+
 class Register extends Component {
   constructor(props) {
     super(props);
@@ -30,9 +32,15 @@ class Register extends Component {
     axios.post(`http://104.248.188.46:8082/hackusach/api/v1/alumnos/`,  payload )
       .then(res => {        
         console.log(res.data);
+
+        alert("Usuario creado con éxito");
+      
+         window.location.reload();
       }).catch(error => {
       console.log(error.response)
       }); 
+
+      
 
   }
 
@@ -105,7 +113,9 @@ class Register extends Component {
             />
           </FormGroup>
           <Button block bsSize="large" disabled={!this.validateForm()} onClick={this.crear} type="submit"> Registrarse </Button>
+         <Link id="register" to={"/login"}>Volver</Link>
         </form>
+        
       </div>
     );
   }

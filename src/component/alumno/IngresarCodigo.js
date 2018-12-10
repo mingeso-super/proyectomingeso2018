@@ -14,6 +14,8 @@ import 'brace/theme/solarized_dark';
 import 'brace/theme/monokai';
 import 'brace/theme/terminal';
 
+import items from '../menu/menu.js'; 
+
 //import MyLargeModal from '../MyLargeModal.js';
 
 import './Estudiante.css';
@@ -21,12 +23,15 @@ import { ButtonGroup, Button, FormControl,Popover, Panel, ListGroup, ListGroupIt
 
 import queryString from 'query-string'
 
+import {identificador} from '../login/Login';
+
 var lengEditor: "python";
 var temsEditor: "solarized_dark";
 var programCode ="";
 var responseCode=[];
 var responseError=[];
 
+var id_evaluacion;
 
 const options = ["PYTHON", "C", "JAVA"];
 var values ;
@@ -55,6 +60,7 @@ class IngresarCodigo extends Component {
  
 
 componentDidMount() {
+
   console.log("valor de paramteo");
    values = this.props.match.params.id;
   console.log(values);
@@ -108,15 +114,62 @@ extraerEnunciado(){
        this.setState({ entradasEnun: entrada });
        this.setState({ salidaEnun: salida });   
 
-      });
-
-      
+      });      
       
 }
 
 agregar(event){    
      //enviar evaluacion 
+     const prueba = {
+      alumnoId: "2",
+      enunciadoId: "5",
+      code: programCode,
+      lang: this.state.leng    
+       
+    }
+    console.log("el id del u");
+
+    console.log(localStorage.getItem('id_usuario'));
+
+    console.log(prueba);
+    console.log("salida");
+        axios.post(`http://104.248.188.46:8082/hackusach/api/v1/alumno/`+localStorage.getItem('id_usuario')+`/enunciado/`+values+`/evaluacion/`,  prueba )
+          .then(res => {    
+             console.log(res.data);
+             console.log(res.data.id);
+             id_evaluacion = res.data.id;
+
+             console.log("valores de la uri...");
+              console.log(identificador.id);
+              console.log(values);
+              console.log(id_evaluacion);
+
+
+             axios.post(`http://104.248.188.46:8082/hackusach/api/v1/alumno/`+localStorage.getItem('id_usuario')+`/enunciado/`+values+`/evaluacion/` +id_evaluacion+`/evaluate`,  prueba )
+          .then(res => {    
+             console.log(res.data);
+
+             alert("Solución enviada con éxito.");
+             document.querySelector("label").innerHTML =JSON.stringify(res.data);
+
+
+          }).catch(error => {     
+            console.log(error.data);
+          });
+
+
+    }).catch(error => {     
+      console.log(error.data);
+    });
+
+     // alert("Solución enviada.");
+
+        // window.location.reload();
+        
+
   }
+
+
 
   prueba(event){
     const prueba = {
@@ -164,7 +217,7 @@ handleSubmit = event => {
     return (
 
     <div className="IngresarCodigo"  onSubmit={this.handleSubmit} >    
-
+   <Header title="Principal" items={items}/>
 
   
      <ButtonGroup>

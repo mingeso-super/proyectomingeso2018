@@ -8,4 +8,16 @@
     margin: 0 auto;
     max-width: 320px;
   }
+
 }
+
+#register{
+
+	
+  	       float: left;
+    margin: 20px 20px 0 90px;
+    overflow: hidden;
+    padding: 0;
+    width: 200px;
+  }
+

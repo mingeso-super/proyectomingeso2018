@@ -2,6 +2,19 @@ import React, { Component } from "react";
 import { Button, FormGroup, FormControl, ControlLabel } from "react-bootstrap";
 import "./Login.css";
 import axios from 'axios';
+import { Link } from 'react-router-dom';
+
+import { Redirect } from 'react-router'
+
+var usuarios = [];
+
+var lista=[];
+
+var id_u;
+
+export var identificador = {
+  id: id_u,
+}
 
 class Login extends Component {
   constructor(props) {
@@ -9,10 +22,15 @@ class Login extends Component {
 
     this.state = {
       email: "",
-      password: ""
+      password: "",
+      redirect: false,
+      respuesta: false,
+      id: ""
     };
   this.request = this.request.bind(this);
   }
+
+
 
   request(){
      var payload={
@@ -23,13 +41,53 @@ class Login extends Component {
     console.log(payload);
 
      axios.post(`http://104.248.188.46:8082/hackusach/login`,  payload )
+      .then(res => {
+        this.setState({ 
+        respuesta: true 
+      });
+
+      }).catch(error => { 
+       
+       alert("Usuario o Contraseña incorrecta.");
+      });      
+
+
+      
+    axios.get(`http://104.248.188.46:8082/hackusach/api/v1/alumnos/all`)
       .then(res => {        
         console.log(res.data);
+        // this.setState({ redirect: true });
+        usuarios.push(res.data);
+      //  console.log("usuarios: ");
+    //    console.log(this.state.email);
+        for (var i=0; i< usuarios[0].length ; i++ ){
+       //   console.log("iterando");
+          if(usuarios[0][i].username === this.state.email){
+            identificador.id = usuarios[0][i].id;
+            // setter
+          localStorage.setItem('id_usuario', usuarios[0][i].id);
+       //     console.log("id: ");
+         //   console.log(identificador.id);
+             this.setState({ 
+               id: usuarios[0][i].id
+              });
+             
+          }
+        }
+
+        if(this.state.respuesta === true){
+          console.log("login corrrecto");
+
+           this.setState({ redirect: true });
+
+        }
+
+        
       }).catch(error => {
-      console.log(error.response)
-      }); 
-  
-    
+       console.log(error.response);
+       
+      });            
+      
 
   }
 
@@ -49,7 +107,15 @@ class Login extends Component {
   }
 
   render() {
+
+     const { redirect } = this.state;
+
+     if (redirect) {
+       return <Redirect to='/enunciadoEstudiante'/>;
+     }
+
     return (
+     
  
       <div className="Login">      
         <form onSubmit={this.handleSubmit}>
@@ -71,7 +137,19 @@ class Login extends Component {
             />
           </FormGroup>
           <Button block bsSize="large" disabled={!this.validateForm()}  onClick={this.request} type="submit"> Login </Button>
+          
+          <div>
+           <Link id="register" bsStyle="info" to="/register">
+              <button bsStyle="info" >
+                  Registrarse
+               </button>
+           </Link>
+          </div>
+         
+          
+
         </form>
+       
       </div>
     );
   }

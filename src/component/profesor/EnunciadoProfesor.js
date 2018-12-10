@@ -1,7 +1,7 @@
 
 import React, { Component } from "react";
 import Table from '../table/Table.js';
-import items from '../menu/Menu.js'; 
+import items from '../menu/menu.js'; 
 import PropTypes from 'prop-types';
 import axios from 'axios';
 
@@ -25,7 +25,6 @@ class EnunciadoProfesor extends Component {
         console.log(res.data);
         const lista = res.data;
         this.setState({lista});
-        console.log("olii");
         console.log(this.state.lista);
         console.log(this.state.lista[0]);
         console.log(this.state.lista[0].productCode);

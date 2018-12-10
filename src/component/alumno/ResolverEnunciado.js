@@ -5,7 +5,7 @@ import Table from '../table/Table.js';
 import items from '../menu/Menu.js'; 
 import PropTypes from 'prop-types';
 import axios from 'axios';
-
+import {identificador} from '../login/Login';
 
 class EnunciadoEstudiante extends Component {  
 
@@ -39,6 +39,10 @@ class EnunciadoEstudiante extends Component {
 
 
   componentDidMount(){
+    console.log("el id del u");
+    console.log(identificador.id);
+
+
     axios.get(`http://104.248.188.46:8082/hackusach/api/v1/enunciados/all`)
       .then(res => {
         console.log(res);
@@ -52,13 +56,13 @@ class EnunciadoEstudiante extends Component {
       });
   }
 
-	
+  
   render() {    
     return (
     <div className="EnunciadoEstudiante">      
       <Table lista={this.state.lista}/>
   
-      </div>	    
+      </div>      
     );
   }
 }
