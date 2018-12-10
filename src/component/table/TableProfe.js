@@ -1,6 +1,5 @@
 import React,{Component} from "react";
 import "./Table.css";
- 
 import axios from 'axios';
 
 import { Link } from 'react-router-dom';
@@ -17,22 +16,14 @@ function ListaItems(props) {
       <td>{number.descripcion}</td>
       <td>{number.entradas+', '}</td>     
       <td>{number.salidas+','}</td>  
-      <td>
-       <Link to={"/resolverEnunciado/"+number.id}>Resolver enunciado</Link>
-      </td>     
-
-      <td>
-       <Link to={"/EvaluacionesEstudiante/"+number.id}>Mis evaluaciones</Link>
-      </td>   
-
-    </tr>
+      </tr>
   );
   return (
     <tbody>{listItems}</tbody>
   );
 }
 
-class Table extends Component {  
+class TableProfe extends Component {  
 
  
   render() {
@@ -58,4 +49,4 @@ class Table extends Component {
   }
 }
 
-export default Table;
+export default TableProfe;

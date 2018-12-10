@@ -3,7 +3,7 @@ import React, { Component,  } from "react";
 /*import "./App.css";*/
 // Import React Table
 import ReactTable from "react-table";
-import "react-table/react-table.css";
+import "react-table/react-table.css";  
 // Import Hamoni Sync
 /*import Hamoni from "hamoni-sync";*/
 import { Button, FormControl, Table} from 'react-bootstrap';

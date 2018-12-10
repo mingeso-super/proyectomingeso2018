@@ -136,6 +136,7 @@ borrar(event){
   render() {    
     return (
     <div className="IngresarEnunciadoProfesor" >
+    <div className="Header" >
      <div className="Logo">
           <img src={logo} alt="logo" />
           <h2>Principal Profesor</h2>            
@@ -159,7 +160,8 @@ borrar(event){
                   
         </ul>
 
-        </div>   
+        </div> 
+        </div>  
     <h3>
           Ingresar un nuevo Enunciado 
      </h3>

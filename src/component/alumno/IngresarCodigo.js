@@ -2,7 +2,7 @@ import React, { Component } from "react";
 import Header from '../Header.js';
 import Content from '../Content.js';
 import PropTypes from 'prop-types';
-import axios from 'axios';
+import axios from 'axios'; 
 import AceEditor from 'react-ace';
 // Import a Mode (language)
 import 'brace/mode/python';
@@ -121,8 +121,8 @@ extraerEnunciado(){
 agregar(event){    
      //enviar evaluacion 
      const prueba = {
-      alumnoId: "2",
-      enunciadoId: "5",
+      alumnoId: Number(localStorage.getItem('id_usuario')),
+      enunciadoId: Number(values),
       code: programCode,
       lang: this.state.leng    
        
@@ -162,9 +162,9 @@ agregar(event){
       console.log(error.data);
     });
 
-     // alert("Solución enviada.");
+      alert("Solución enviada con éxito.");
 
-        // window.location.reload();
+         window.location.reload();
         
 
   }

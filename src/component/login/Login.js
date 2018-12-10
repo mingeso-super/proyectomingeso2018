@@ -5,6 +5,7 @@ import axios from 'axios';
 import { Link } from 'react-router-dom';
 
 import { Redirect } from 'react-router'
+import ls from 'local-storage';
 
 var usuarios = [];
 
@@ -12,10 +13,17 @@ var lista=[];
 
 var id_u;
 
+var roles = 0;
+
 export var identificador = {
   id: id_u,
+  Rol: roles,
 }
 
+
+ var intercambio;
+ var bandera_profe = 0;
+ var bandera_alumno = 0;
 
 
 class Login extends Component {
@@ -30,33 +38,15 @@ class Login extends Component {
       id: ""
     };
   this.request = this.request.bind(this);
+  this.llamadaProfe = this.llamadaProfe.bind(this);
+    this.llamadaLogin = this.llamadaLogin.bind(this);
+      this.llamadaAlumnos = this.llamadaAlumnos.bind(this);
+
   }
 
-  hydrateStateWithLocalStorage() {
-    // for all items in state
-    for (let key in this.state) {
-      // if the key exists in localStorage
-      if (localStorage.hasOwnProperty(key)) {
-        // get the key's value from localStorage
-        let value = localStorage.getItem(key);
 
-        // parse the localStorage string and setState
-        try {
-          value = JSON.parse(value);
-          this.setState({ [key]: value });
-        } catch (e) {
-          // handle empty string
-          this.setState({ [key]: value });
-        }
-      }
-    }
-  }
+   llamadaLogin(){
 
-  componentDidMount() {
-    this.hydrateStateWithLocalStorage();
- }
-
-  request(){
      var payload={
       username : this.state.email,
       password :this.state.password
@@ -65,7 +55,7 @@ class Login extends Component {
     console.log(payload);
 
      axios.post(`http://104.248.188.46:8082/hackusach/login`,  payload )
-      .then(res => {
+      .then(async(res) => {
         this.setState({ 
         respuesta: true 
       });
@@ -76,19 +66,28 @@ class Login extends Component {
       });      
 
 
+  }
+
+   async llamadaAlumnos(){
+
+   
       
-    axios.get(`http://104.248.188.46:8082/hackusach/api/v1/alumnos/all`)
-      .then(res => {        
+     axios.get(`http://104.248.188.46:8082/hackusach/api/v1/alumnos/all`)
+      .then( async (res) =>  {        
         console.log(res.data);
         // this.setState({ redirect: true });
+         usuarios = [];
         usuarios.push(res.data);
       //  console.log("usuarios: ");
     //    console.log(this.state.email);
         for (var i=0; i< usuarios[0].length ; i++ ){
        //   console.log("iterando");
           if(usuarios[0][i].username === this.state.email){
-            localStorage.setItem('Rol',"alumno",5);
-            localStorage.setItem('id_usuario', usuarios[0][i].id,5);
+
+             bandera_alumno = 1;
+             
+
+            localStorage.setItem('id_usuario', usuarios[0][i].id);
            
           //alert("soy alumno");
             identificador.id = usuarios[0][i].id;
@@ -102,11 +101,13 @@ class Login extends Component {
              
           }
         }
+        
 
-        if(this.state.respuesta === true){
-          console.log("login corrrecto");
+        if(bandera_alumno === 1 && this.state.respuesta){
+           console.log("login alumno corrrecto!!!!!!!!!!!!");  
 
-           this.setState({ redirect: true });
+            localStorage.setItem('Rol',"alumno");
+             this.setState({ redirect: true });         
 
         }
 
@@ -114,52 +115,70 @@ class Login extends Component {
       }).catch(error => {
        console.log(error.response);
        
-      });      
-
-       axios.get(`http://104.248.188.46:8082/hackusach/api/v1/profesores/all`)
-      .then(res => {        
-        console.log(res.data);
-        // this.setState({ redirect: true });
-        usuarios = [];
-        usuarios.push(res.data);
-      //  console.log("usuarios: ");
-    //    console.log(this.state.email);
-        for (var i=0; i< usuarios[0].length ; i++ ){
-       //   console.log("iterando");
-          if(usuarios[0][i].username === this.state.email){
-          localStorage.setItem('Rol',"profesor",5);
-             localStorage.setItem('id_usuario', usuarios[0][i].id,5);
-         
-           //     alert("soy profe");
-            identificador.id = usuarios[0][i].id;
-            // setter
-         
-         
-         //   console.log(identificador.id);
-             this.setState({ 
-               id: usuarios[0][i].id
-              });
-             
-          }
-        }
-
-
-
-        if(this.state.respuesta === true){
-          console.log("login corrrecto");
-
-           this.setState({ redirect: true });
-
-        }
-
-        
-      }).catch(error => {
-       console.log(error.response);
-       
-      });           
-      
+      });
 
   }
+
+   async llamadaProfe(){
+
+     axios.get(`http://104.248.188.46:8082/hackusach/api/v1/profesores/all`)
+                    .then(async(res) => {        
+                      console.log(res.data);
+                      // this.setState({ redirect: true });
+                      usuarios = [];
+                      usuarios.push(res.data);
+                    //  console.log("usuarios: ");
+                  //    console.log(this.state.email);
+                      for (var i=0; i< usuarios[0].length ; i++ ){
+                     //   console.log("iterando");
+                        if(usuarios[0][i].username === this.state.email){
+                          bandera_profe = 1;
+                           localStorage.setItem('id_usuario', usuarios[0][i].id);
+                       
+                             
+                          identificador.id = usuarios[0][i].id;
+                          // setter
+                       
+                       
+                       //   console.log(identificador.id);
+                           this.setState({ 
+                             id: usuarios[0][i].id
+                            });
+                           
+                        }
+                      }
+
+                      if(bandera_profe === 1  && this.state.respuesta){
+                        console.log("login rofesor corrrecto!!!!!!!!!!!!");        
+                          
+                          localStorage.setItem('Rol',"profesor");
+                         this.setState({ redirect: true });
+
+                       
+                      }
+
+                      
+                    }).catch(error => {
+                     console.log(error.response);
+                     
+                    });
+
+  }
+
+
+async request(){
+  console.log("----------------------------------");
+  var login = this.llamadaLogin();
+  var result1 =   this.llamadaAlumnos();
+  var result2 =  this.llamadaProfe();
+
+  localStorage.setItem('Rol',"");
+    bandera_profe = 0;
+    bandera_alumno = 0;
+}
+    
+
+
 
   validateForm() {
     return this.state.email.length > 0 && this.state.password.length > 0;
