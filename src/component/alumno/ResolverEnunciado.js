@@ -49,10 +49,7 @@ class EnunciadoEstudiante extends Component {
         console.log(res.data);
         const lista = res.data;
         this.setState({lista});
-        console.log("olii");
-        console.log(this.state.lista);
-        console.log(this.state.lista[0]);
-        console.log(this.state.lista[0].productCode);
+      
       });
   }
 

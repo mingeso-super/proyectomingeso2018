@@ -16,6 +16,8 @@ export var identificador = {
   id: id_u,
 }
 
+
+
 class Login extends Component {
   constructor(props) {
     super(props);
@@ -30,7 +32,29 @@ class Login extends Component {
   this.request = this.request.bind(this);
   }
 
+  hydrateStateWithLocalStorage() {
+    // for all items in state
+    for (let key in this.state) {
+      // if the key exists in localStorage
+      if (localStorage.hasOwnProperty(key)) {
+        // get the key's value from localStorage
+        let value = localStorage.getItem(key);
 
+        // parse the localStorage string and setState
+        try {
+          value = JSON.parse(value);
+          this.setState({ [key]: value });
+        } catch (e) {
+          // handle empty string
+          this.setState({ [key]: value });
+        }
+      }
+    }
+  }
+
+  componentDidMount() {
+    this.hydrateStateWithLocalStorage();
+ }
 
   request(){
      var payload={
@@ -63,10 +87,14 @@ class Login extends Component {
         for (var i=0; i< usuarios[0].length ; i++ ){
        //   console.log("iterando");
           if(usuarios[0][i].username === this.state.email){
+            localStorage.setItem('Rol',"alumno",5);
+            localStorage.setItem('id_usuario', usuarios[0][i].id,5);
+           
+          //alert("soy alumno");
             identificador.id = usuarios[0][i].id;
             // setter
-          localStorage.setItem('id_usuario', usuarios[0][i].id);
-       //     console.log("id: ");
+          
+         
          //   console.log(identificador.id);
              this.setState({ 
                id: usuarios[0][i].id
@@ -86,7 +114,49 @@ class Login extends Component {
       }).catch(error => {
        console.log(error.response);
        
-      });            
+      });      
+
+       axios.get(`http://104.248.188.46:8082/hackusach/api/v1/profesores/all`)
+      .then(res => {        
+        console.log(res.data);
+        // this.setState({ redirect: true });
+        usuarios = [];
+        usuarios.push(res.data);
+      //  console.log("usuarios: ");
+    //    console.log(this.state.email);
+        for (var i=0; i< usuarios[0].length ; i++ ){
+       //   console.log("iterando");
+          if(usuarios[0][i].username === this.state.email){
+          localStorage.setItem('Rol',"profesor",5);
+             localStorage.setItem('id_usuario', usuarios[0][i].id,5);
+         
+           //     alert("soy profe");
+            identificador.id = usuarios[0][i].id;
+            // setter
+         
+         
+         //   console.log(identificador.id);
+             this.setState({ 
+               id: usuarios[0][i].id
+              });
+             
+          }
+        }
+
+
+
+        if(this.state.respuesta === true){
+          console.log("login corrrecto");
+
+           this.setState({ redirect: true });
+
+        }
+
+        
+      }).catch(error => {
+       console.log(error.response);
+       
+      });           
       
 
   }
@@ -99,6 +169,7 @@ class Login extends Component {
     this.setState({
       [event.target.id]: event.target.value
     });
+
 
   }
 
@@ -144,9 +215,7 @@ class Login extends Component {
                   Registrarse
                </button>
            </Link>
-          </div>
-         
-          
+          </div>         
 
         </form>
        

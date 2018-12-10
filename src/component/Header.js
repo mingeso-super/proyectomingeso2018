@@ -10,7 +10,7 @@ import { Link } from 'react-router-dom';
 class Header extends Component {  
 
 	static PropTypes = {
-		title: PropTypes.string.isRequired,
+		title: PropTypes.string.isRequired, 
 		items: PropTypes.array.isRequired
 	};
 
@@ -29,11 +29,7 @@ class Header extends Component {
 					         Enunciados
 					     </button>
 					 </Link>
-					 <Link bsStyle="info" to="/ingresarEnunProfesor">
-				     	<button bsStyle="info" >
-					         Nuevo enunciado
-					     </button>
-					 </Link>
+					 
 					 <Link bsStyle="info" to="/login">
 				     	<button bsStyle="info" >
 					         Salir

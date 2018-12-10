@@ -11,6 +11,8 @@ import './indexProfesor.css';
 import Editable, {parametros} from './TablaEditable';
  
 import Header from '../Header.js';
+import { Link } from 'react-router-dom';
+import logo from '.././logo.svg';
 
 
 class IngresarEnunciadoProfesor extends Component { 
@@ -134,7 +136,30 @@ borrar(event){
   render() {    
     return (
     <div className="IngresarEnunciadoProfesor" >
-     <Header title="Principal" items={items}/>
+     <div className="Logo">
+          <img src={logo} alt="logo" />
+          <h2>Principal Profesor</h2>            
+        <ul className="Menu">           
+            
+            <Link bsStyle="info" to="/enunciadoEstudiante">
+              <button bsStyle="info" >
+                   Enunciados
+               </button>
+           </Link>
+           <Link bsStyle="info" to="/ingresarEnunProfesor">
+              <button bsStyle="info" >
+                   Nuevo enunciado
+               </button>
+           </Link>
+           <Link bsStyle="info" to="/login">
+              <button bsStyle="info" >
+                   Salir
+               </button>
+           </Link>
+                  
+        </ul>
+
+        </div>   
     <h3>
           Ingresar un nuevo Enunciado 
      </h3>

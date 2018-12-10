@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-import { Button, FormGroup, FormControl, ControlLabel } from "react-bootstrap";
+import { Button, FormGroup, FormControl, ControlLabel, Navbar } from "react-bootstrap";
 import "./Register.css";
 import axios from 'axios';
 
@@ -14,8 +14,9 @@ class Register extends Component {
       password1: "",
       password2: "",
       nombres:"",
-      apellidos:""
-    };
+      apellidos:"",
+      optionsState: "alumno"
+    }; 
     this.crear = this.crear.bind(this);
   }
 
@@ -29,16 +30,36 @@ class Register extends Component {
     }
     console.log(payload);
 
-    axios.post(`http://104.248.188.46:8082/hackusach/api/v1/alumnos/`,  payload )
+     localStorage.setItem('Rol',this.state.optionsState );
+
+    if(this.state.optionsState === "alumno"){
+
+       axios.post(`http://104.248.188.46:8082/hackusach/api/v1/alumnos/`,  payload )
       .then(res => {        
         console.log(res.data);
 
-        alert("Usuario creado con éxito");
+        alert("Usuario Alumno creado con éxito.");
       
          window.location.reload();
       }).catch(error => {
       console.log(error.response)
       }); 
+
+    }
+    if(this.state.optionsState === "profesor"){
+       axios.post(`http://104.248.188.46:8082/hackusach/api/v1/profesores/`,  payload )
+      .then(res => {        
+        console.log(res.data);
+
+        alert("Usuario Profesor creado con éxito.");
+      
+         window.location.reload();
+      }).catch(error => {
+      console.log(error.response)
+      }); 
+    }
+
+   
 
       
 
@@ -48,7 +69,7 @@ class Register extends Component {
   validateForm() {
     
     const pass1= this.state.password1; 
-    const pass2 = this.state.password2;     
+    const pass2 = this.state.password2;  
 
     return this.state.email.length > 0 && this.state.password1.length > 0  && pass1 === pass2;
 
@@ -56,13 +77,16 @@ class Register extends Component {
 
   handleChange = event => {
     this.setState({
-      [event.target.id]: event.target.value
+      [event.target.id]: event.target.value,
+      optionsState: event.target.value
     });
   }
 
   handleSubmit = event => {
     event.preventDefault();
   }
+ 
+
 
   render() {
     return (
@@ -112,6 +136,10 @@ class Register extends Component {
               type="password"
             />
           </FormGroup>
+        <select id="lang" onChange={this.handleChange.bind(this)} value={this.state.optionsState}>
+            <option value="alumno">Soy Alumno</option>
+            <option value="profesor">Soy Profesor</option>
+        </select>
           <Button block bsSize="large" disabled={!this.validateForm()} onClick={this.crear} type="submit"> Registrarse </Button>
          <Link id="register" to={"/login"}>Volver</Link>
         </form>

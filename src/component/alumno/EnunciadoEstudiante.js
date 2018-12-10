@@ -7,12 +7,41 @@ import items from '../menu/menu.js';
 import PropTypes from 'prop-types';
 import axios from 'axios';
 
-import { Button, FormControl} from 'react-bootstrap';
+import { Button, FormControl} from 'react-bootstrap'; 
 
 import Routes from '../../Routes.js';
 import { BrowserRouter, Route, Switch, Redirect, Link } from 'react-router-dom';
 import {identificador} from '../login/Login';
 
+import logo from '.././logo.svg';
+
+ var thisIsMyCopy = "";
+  
+
+
+ function barra(){
+
+
+
+   alert("rol es: " + localStorage.getItem('Rol'));
+
+      if( localStorage.getItem('Rol') ===  "alumno"){
+        //alumno
+      return (<div className="Logo"><img src={logo} alt="logo" /> <h2>Principal Alumno</h2> <ul className="Menu">  <Link bsStyle="info" to="/enunciadoEstudiante"><button bsStyle="info" >Enunciados</button></Link><Link bsStyle="info" to="/login"><button bsStyle="info" >Salir</button></Link></ul> </div> ) ;
+
+      }
+    
+
+      if(localStorage.getItem('Rol') === "profesor"){
+        //profe
+      return (<div className="Logo"><img src={logo} alt="logo" /><h2>Principal Profesor</h2><ul className="Menu"><Link bsStyle="info" to="/enunciadoEstudiante"><button bsStyle="info" >  Enunciados  </button> </Link>     <Link bsStyle="info" to="/ingresarEnunProfesor">  <button bsStyle="info" >    Nuevo enunciado     </button>   </Link>     <Link bsStyle="info" to="/login">   <button bsStyle="info" >Salir</button> </Link>  </ul>  </div> );
+
+      }
+
+
+
+
+}
 
 
 class EnunciadoEstudiante extends Component {  
@@ -38,6 +67,8 @@ class EnunciadoEstudiante extends Component {
   }
 
 
+
+
    submitHandler(e) {
     e.preventDefault();
    
@@ -54,10 +85,30 @@ class EnunciadoEstudiante extends Component {
     });
   }
 
+hydrateStateWithLocalStorage() {
+    // for all items in state
+    for (let key in this.state) {
+      // if the key exists in localStorage
+      if (localStorage.hasOwnProperty(key)) {
+        // get the key's value from localStorage
+        let value = localStorage.getItem(key);
+
+        // parse the localStorage string and setState
+        try {
+          value = JSON.parse(value);
+          this.setState({ [key]: value });
+        } catch (e) {
+          // handle empty string
+          this.setState({ [key]: value });
+        }
+      }
+    }
+  }
 
 
   componentDidMount(){
     console.log("el id del u");
+     this.hydrateStateWithLocalStorage();
 
     console.log(localStorage.getItem('id_usuario'));
 
@@ -69,13 +120,16 @@ class EnunciadoEstudiante extends Component {
         this.setState({lista});
         
       });
+
+     
+      
   }
 
   
   render() {    
     return (
     <div className="EnunciadoEstudiante"> 
-    <Header title="Principal" items={items}/>     
+    <div className="Header" >{barra()}</div>   
       <Table lista={this.state.lista}/>
           
           
