@@ -1,0 +1,67 @@
+html, body{
+    height:100%;
+
+    width: 100%;
+ 
+
+  }
+
+
+#ada{
+   height:100%;
+
+    width: 100%;
+     background-image: url(programing.jpg);
+
+}
+#root{
+  height:100%;
+
+    width: 100%;
+ 
+
+}
+.App{
+   height:100%;
+
+    width: 100%;
+ 
+
+}
+
+
+.Content{
+    height:100%;
+
+    width: 100%;
+}
+#letras{
+  background-color: cornflowerblue;
+}
+#banner{
+  background-image: url("http://mexicocarrental.mx/wp-content/uploads/2015/07/manzanillo-04.jpg");
+  background-position: center center;
+  background-repeat: no-repeat;
+  background-attachment: fixed; 
+  background-size: cover;
+  height: 100%;
+}
+
+#Iralogin{
+  width: 20% !important;
+    /* height: 20%; */
+    /* padding-top: 1%; */
+ 
+}
+
+#banner p{
+  text-align:center;
+  font-size:20px;
+  }
+
+  background-image: url("http://mexicocarrental.mx/wp-content/uploads/2015/07/manzanillo-04.jpg");
+background-position: center center;
+background-repeat: no-repeat;
+background-attachment: fixed;
+background-size: cover;
+height: 100%;

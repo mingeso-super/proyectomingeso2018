@@ -7,7 +7,9 @@ import items from './menu/menu.js';
 import PropTypes from 'prop-types';
 import Rol from './Rol.js';
 import Login from './login/Login.js';
-import { Router, Route } from 'react-router-dom';
+import home from './login/home';
+import { Router, Route,BrowserRouter, Switch, Redirect } from 'react-router-dom';
+import "./App.css";
 
 class App extends Component {  
 
@@ -20,10 +22,11 @@ class App extends Component {
   const {children} = this.props;
     return (
      <div className="App">
-    
+
+ 
       <Route path="/login" component={Login} />
       <Content body={children} />      
-      </div>      
+      </div>  
     );
   }
 }

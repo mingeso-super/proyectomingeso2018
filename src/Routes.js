@@ -4,6 +4,8 @@ import React from 'react';
 import {Route, Switch} from 'react-router-dom'; 
 import App from './component/App';
 import Login from  './component/login/Login';
+import home from './component/login/home';
+import fondo from './component/login/ComponentWithBackgroundImage';
 import Register from  './component/register/Register';
 import TextTarea from './component/textTarea/TextTarea';
 import Table from './component/table/Table.js'; 
@@ -31,6 +33,8 @@ const AppRoutes = () =>
 		<Route exact path="/resolverEnunciado/:id" component={IngresarCodigo} />
 		<Route exact path="/commentBox" component={commentBox} />
 		<Route exact path="/EvaluacionesEstudiante/:id" component={EvaluacionesEstudiante} />
+		<Route exact path="/" component={home} />
+		<Route exact path="/fondo" component={fondo} />
 	</Switch>
 </App>;
 

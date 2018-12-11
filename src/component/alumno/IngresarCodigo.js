@@ -263,7 +263,7 @@ handleSubmit = event => {
                  <label for="test" ></label>            
          </div>
 
-        <Button bsStyle="primary"  onClick={this.agregar} > Enviar solución</Button>
+        <Button bsStyle="primary" id="enviarSol" onClick={this.agregar} > Enviar solución</Button>
         <Button bsStyle="primary"  onClick={this.prueba} > Prueba</Button> 
 
          <div style={{ height: 120 }}>
